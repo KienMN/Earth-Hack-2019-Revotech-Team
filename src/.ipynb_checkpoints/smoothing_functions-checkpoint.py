@@ -46,14 +46,14 @@ def window_smooth(x,window_len=11,window='hanning'):
     if not window in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
         raise ValueError("Window is on of 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'")
 
-    s=np.r_[x[window_len-1: 0: -1], x, x[-2: -window_len-1: -1]]
+    s = np.r_[x[window_len-1: 0: -1], x, x[-2: -window_len-1: -1]]
     #print(len(s))
     if window == 'flat': #moving average
-        w=np.ones(window_len,'d')
+        w = np.ones(window_len,'d')
     else:
-        w=eval('np.'+window+'(window_len)')
+        w = eval('np.'+window+'(window_len)')
 
-    y=np.convolve(w/w.sum(),s,mode='valid')
+    y = np.convolve(w/w.sum(),s,mode='valid')
     return y[(window_len//2-1):-(window_len//2)]
 
 def wavelet_smooth(x, wavelet="db4", level=1, title=None):
